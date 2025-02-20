@@ -12,7 +12,6 @@ class Account:
 
     def deposit(self, deposit_amount):
         """Add valid deposit_amount to account balance."""
-
         if deposit_amount <= 0:
             print("Deposit amount must be greater that $0.00.")
             return
@@ -22,10 +21,10 @@ class Account:
         self.balance += deposit_amount
 
     def withdraw(self, withdraw_amount):
-
-        # TODO check withdraw amount > 0
-        # TODO check that the account has enough funds to withdraw
-        # TODO add to customer report that this amount was withdrawn
+        """
+        Function to withdraw funds from the account
+        :param withdraw_amount: customer input
+        """
         # Check if there is any fund in the account
         if withdraw_amount <= 0:
             print("Withdraw amount must be a positive value.")
