@@ -8,16 +8,14 @@ class Bank:
     def __init__(self):
         self.customers = {
         }
-        self.transactions = []
 
-    def create_new_customer(self):
+    def create_new_customer(self) -> None:
         """
         Create New customer
-        :return: Add new customer to banks customer ledger
         """
-        unique_customer_id = self.generate_unique_customer_id()
+        unique_customer_id = self.get_unique_customer_id()
         customer_name = self.get_customer_name()
-        customer_address = self.add_customer_address()
+        customer_address = self.set_customer_address()
 
         new_customer = Customer(unique_customer_id, customer_name, customer_address)
         new_account = self.create_new_account(new_customer.customer_id)
@@ -29,12 +27,14 @@ class Bank:
 
     def create_new_account(self, customer_id):
         """
-        Create new account for given customer_id
+        Create new account for given customer_id.
         """
         return Account(customer_id)
 
     def add_account_for_customer(self, customer_id):
-        """Create a new account for an existing customer"""
+        """
+        Create new account for an existing customer.
+        """
         new_account = self.create_new_account(customer_id)
         if customer_id in self.customers:
             self.customers[customer_id]['accounts'].append(new_account)
@@ -42,16 +42,18 @@ class Bank:
             print(f"Customer {customer_id} not found.")
 
     def find_customer(self, customer_id=""):
-        """Find and return the customer and their account information for the given customer_id."""
+        """
+        Find and return the customer and their account information for the given customer_id.
+        """
         if customer_id in self.customers:
             return self.customers[customer_id]
         else:
             print("Customer not found.")
             return None
 
-    def generate_unique_customer_id(self):
+    def get_unique_customer_id(self):
         """
-        Generate new unique customer id.
+        Generate new unique customer_id.
         """
         unique_id = uuid.uuid1()
         return unique_id.int
@@ -69,15 +71,16 @@ class Bank:
             print("Invalid name. Please try again using only letters, spaces, hyphens and apostrophes.")
 
     def get_total_bank_assets(self):
-        """Function returns sum of all assets that are deposited in the bank"""
-        total_assets = 0
+        """
+        Function returns sum of all assets that are deposited in the bank.
+        """
+        total_assets = 0.0
         for customer_info in self.customers.values():
             for account in customer_info['accounts']:
                 total_assets += account.balance
         return total_assets
 
-
-    def add_customer_address(self):
+    def set_customer_address(self):
         """
         Prompt the user to provide address information.
         Returns a dictionary with address details or and empty dictionary if user declines.
@@ -93,7 +96,7 @@ class Bank:
 
         # Prompt for address details
         while True:
-            street_name = input("Enter stree name: ").strip().casefold()
+            street_name = input("Enter street name: ").strip().casefold()
             if street_name:
                 break
             print("Street name cannot be empty.")
@@ -103,7 +106,7 @@ class Bank:
             if street_number.isdigit():
                 street_number = int(street_number)
                 break
-            print("PLease enter a valid street number (digits only).")
+            print("Please enter a valid street number (digits only).")
 
         while True:
             city = input("Enter city: ").strip().casefold()
